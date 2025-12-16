@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <?xml version="1.0" encoding="UTF-8"?>
+    <link rel="icon" href="Assets/icon.png" type="image/png">
+    <title>laurentin rivi&egrave;re &ndash; home</title>
+    <link rel="stylesheet" href="Styles/general.css">
+    <link rel="stylesheet" href="Styles/index.css">
+    <link rel="stylesheet" href="https://use.typekit.net/amv0tcd.css">
+  </head>
+
+  <body>
+
+    <section class="text-logo">
+      laurentin rivi&egrave;re
+    </section>
+
+
+  
+
+    <main>
+      <div class="profession">
+        <div class="profession-text">Freelance  artist &ndash; </div>
+
+        <!--Drapeau 🇫🇷-->
+        <svg class="Drapeau-fr"
+        id="Calque_1" 
+        data-name="Calque 1" 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 30 20">
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #000091;
+              }
+
+              .cls-2 {
+                fill: #fff;
+              }
+
+              .cls-3 {
+                fill: #e1000f;
+              }
+            </style>
+          </defs>
+          <rect class="cls-1" width="10.01" height="20"/>
+          <rect class="cls-2" x="10" width="10.01" height="20"/>
+          <rect class="cls-3" x="19.99" width="10.01" height="20"/>
+        </svg>
+        <!--Drapeau 🇫🇷-->
+
+      </div>
+
+      <div class="links">
+        <a href="https://orionlaurentin.com" target="_blank">
+          <div class="links-button">music composition &ndash; @orion-laurentin</div>
+        </a><!--
+        <a href="" target="_blank">
+          <div class="links-button">video editing &ndash; @orikawa-laurentin</div>
+        </a>
+
+        <a href="" target="_blank">
+          <div class="links-button">oni-on &ndash; @oni-on-laurentin</div>
+        </a>🇫🇷-->
+        
+
+      </div>
+
+      <div class="art_container">
+
+        <div class="mountain_container">
+          <img src="Assets/Background/Montagnes.png" alt="mountain decoration background">
+        </div>
+
+        <div class="clouds_container" id="clouds">
+          <!-- Groupe 1 -->
+          <img src="Assets/Background/Cloud 1.png" alt="cloud decoration">
+          <img src="Assets/Background/Cloud 2.png" alt="cloud decoration">
+          <img src="Assets/Background/Cloud 3.png" alt="cloud decoration">
+          <!-- Groupe 2 (dupliqué) -->
+          <img src="Assets/Background/Cloud 1.png" alt="cloud decoration">
+          <img src="Assets/Background/Cloud 2.png" alt="cloud decoration">
+          <img src="Assets/Background/Cloud 3.png" alt="cloud decoration">
+        </div>
+      </div>
+
+      <script>
+        const cloudsContainer = document.getElementById('clouds');
+        const cloudImages = Array.from(cloudsContainer.children);
+        const mountainContainer = document.querySelector('.mountain_container');
+
+        // Variables pour le défilement continu des nuages
+        let cloudPositionX = 0;
+        const cloudScrollSpeed = 0.2; // Vitesse de défilement des nuages (lent)
+        
+        // --- LOGIQUE DE POSITIONNEMENT ALÉATOIRE (Gardé) ---
+        // Mélange ordre (Fisher-Yates)
+        for (let i = cloudImages.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          cloudsContainer.insertBefore(cloudImages[j], cloudImages[i]);
+        }
+        
+        // Espacement et échelle aléatoires
+        cloudImages.forEach((img, i) => {
+          if (i > 0) {
+            const gap = 10 + Math.random() * 20; // vw
+            img.style.marginLeft = `${gap}vw`;
+          }
+          const scale = 0.8 + Math.random() * 0.26;
+          img.style.transform = `scale(${scale})`;
+        });
+
+
+        // --- NOUVELLE ANIMATION JS (Défilement continu + Parallax) ---
+        function animateFrame() {
+          
+          // 1. Défilement continu des Nuages
+          cloudPositionX -= cloudScrollSpeed; 
+          // Condition de boucle basée sur la largeur de la fenêtre pour un défilement continu
+          if (cloudPositionX < -window.innerWidth) {
+            cloudPositionX = 0;
+          }
+          cloudsContainer.style.transform = `translateX(${cloudPositionX}px)`;
+
+
+          // 2. Effet Parallax sur les Montagnes et les Nuages (au scroll)
+          const scrollY = window.scrollY; // Distance défilée
+          
+          // Les montagnes bougent TRES LENTEMENT au scroll (0.1 = très faible)
+          const mountainParallax = scrollY * 0.1;
+          mountainContainer.style.transform = `translateY(${mountainParallax}px)`;
+
+          // Les nuages bougent encore plus lentement au scroll (0.05 = presque fixe)
+          // On combine le défilement continu (cloudPositionX) avec le parallax vertical
+          const cloudParallaxY = scrollY * 0.05;
+          cloudsContainer.style.transform = `translate(${cloudPositionX}px, ${cloudParallaxY}px)`;
+
+
+          // Demande le prochain frame pour l'animation
+          requestAnimationFrame(animateFrame);
+        }
+
+
+        // --- SCRIPT D'APPARITION (On Load) et Lancement ---
+        document.addEventListener('DOMContentLoaded', () => {
+          
+          // Lance toutes les animations (Défilement continu + Parallax)
+          animateFrame(); 
+          
+          // Déclenche l'animation de chargement des éléments
+          setTimeout(() => {
+            document.body.classList.add('load-finished');
+          }, 500);
+        });
+      </script>
+      
+      <footer>
+        <div class="footer-content">
+          <div><u>contact me:</u></div>
+          <div>
+            <a class="mail-link" href="mailto:laurentin.rivierepro@gmail.com">laurentin.rivierepro@gmail.com</a>
+          </div>
+          <div>
+            <u>socials:</u>
+          </div>
+          <div class="social-links">
+            <!--Logo Insta-->
+            <a href="https://www.instagram.com/___laurentin" target="_blank">
+              <svg class="social-logo" 
+              id="Calque_1" 
+              data-name="Calque 1" 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 799.07 799.19">
+                <path d="M300.31.66C367.4-.5,435.09-.02,502.08,1.24c87.12,1.64,167.73,1.64,232.5,68.59,62.25,64.35,61.95,143.35,63.53,227.38,1.28,68.2,1.28,136.86,0,205.05-1.58,84.28-1.32,163.44-63.91,227.78-64.79,66.59-145.26,66.56-232.12,68.19-68.21,1.28-136.89,1.28-205.09,0-84.28-1.58-163.49-1.33-227.83-63.9S2.6,589.16.96,502.26c-1.28-68.2-1.28-136.86,0-205.05,1.58-84.26,1.33-163.46,63.91-227.78C129.61,2.89,213.08,2.17,300.31.66ZM283.15,72.41c-53.84,1.21-116.04,1.39-158.56,38.79-51.01,44.86-50.3,105.96-51.86,168.86-1.97,79.31-1.97,160.06,0,239.36,1.35,54.5.57,112.84,38.95,156.03,44.59,50.19,105.99,49.49,168.15,51.03,79.33,1.97,160.08,1.97,239.41,0,62.24-1.54,123.58-.86,168.15-51.03,38.38-43.2,37.6-101.55,38.95-156.03,1.97-79.32,1.97-160.05,0-239.36-1.56-62.7-.86-123.71-51.44-168.5-42.83-37.93-101.69-37.22-155.66-38.56-77.68-1.93-158.31-2.32-236.09-.58Z"/>
+                <path d="M391.58,194.85c159.81-6.7,266.03,167.51,185.95,306.79-73.83,128.41-256.18,138.75-343.66,18.89-96.84-132.67-5.34-318.84,157.72-325.68ZM388.46,266.6c-94.67,6.91-151.48,111.43-107.12,195.54s169.37,95.87,226.8,15.36c66.3-92.95-6.47-219.17-119.68-210.9Z"/>
+                <path d="M578.44,220.87c-45.49-45.48,25.84-113.79,69.17-66.43,41.93,45.83-25.75,109.84-69.17,66.43Z"/>
+                </svg>
+            </a>
+            
+            <!--Logo X-->
+            <a href="https://x.com/___laurentin" target="_blank">
+              <svg class="social-logo" 
+              id="Calque_2" 
+              data-name="Calque 2" 
+              xmlns="http://www.w3.org/2000/svg" 
+              viewBox="0 0 799.07 799.19">
+                <path d="M245.58,10.18l196.63,285.42L687.42,10.18h66.81l-282.22,329.96,306.51,447.43h-225.47l-206.51-300.65-9.11,7.59-252.02,293.06H19.35l295.57-345.43L19.35,10.18h226.23ZM213.7,60.29h-103.25l474.48,678.7h100.97l-6.35-11.11L213.7,60.29Z"/>
+              </svg>
+            </a>
+            
+          </div>
+          </div>
+      </footer>
+    </main>
+  </body>
+</html>

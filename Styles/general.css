@@ -1,0 +1,24 @@
+body{
+  font-family: "microsoft-uighur", sans-serif, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+  background-color: rgb(255, 253, 247);
+  user-select: none;       /* Empêche la sélection */
+  -webkit-user-select: none; /* Safari/Chrome */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer */
+  /*padding-bottom: 600px;*/
+}
+
+
+a {
+  text-decoration: none; /* enlève le soulignement */
+  color: inherit;        /* garde la couleur du parent */
+}
+a:visited,
+a:hover,
+a:active {
+  color: inherit;        /* empêche le violet/bleu après clic */
+  text-decoration: none; /* garde propre sur hover */
+}
